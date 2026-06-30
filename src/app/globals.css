@@ -1,0 +1,65 @@
+@import 'tailwindcss';
+
+/**
+ * Base styles
+ */
+@layer base {
+  * {
+    @apply scroll-smooth;
+  }
+
+  a,
+  svg,
+  img,
+  input,
+  label,
+  select,
+  button,
+  textarea {
+    @apply select-none;
+  }
+
+  button {
+    @apply hover:cursor-pointer disabled:opacity-50 disabled:hover:cursor-default;
+  }
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0ye2ZpbGw6Izg4ODt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHBvbHlnb24gY2xhc3M9ImNscy0yIiBwb2ludHM9IjEuNDEgNC42NyAyLjQ4IDMuMTggMy41NCA0LjY3IDEuNDEgNC42NyIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIzLjU0IDUuMzMgMi40OCA2LjgyIDEuNDEgNS4zMyAzLjU0IDUuMzMiLz48L3N2Zz4=)
+      no-repeat 96% 50%;
+  }
+
+  ::-webkit-scrollbar {
+    @apply h-1 w-1 bg-zinc-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-zinc-300;
+  }
+}
+
+/**
+ * Decorative animated background blobs
+ */
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -40px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 30px) scale(0.95);
+  }
+}
+
+.animate-float {
+  animation: float 14s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float 20s ease-in-out infinite reverse;
+}
