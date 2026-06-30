@@ -1,0 +1,47 @@
+{
+  "name": "qr-generator",
+  "version": "1.0.0",
+  "description": "Modern QR code generator for permanent QR codes that never expire — fully client-side, no backend and no tracking.",
+  "private": true,
+  "author": {
+    "name": "Petr Kašpar",
+    "url": "https://github.com/ksprptr"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --fix",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "framer-motion": "^12.42.1",
+    "next": "16.2.9",
+    "qrcode": "^1.5.4",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.2",
+    "@types/node": "^26.0.1",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.62.1",
+    "@typescript-eslint/parser": "^8.62.1",
+    "eslint": "^10.6.0",
+    "eslint-config-next": "16.2.9",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.6",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-simple-import-sort": "^13.0.0",
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "husky": "^9.1.7",
+    "prettier": "^3.9.3",
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "tailwindcss": "^4.3.2",
+    "typescript": "^6.0.3"
+  }
+}
