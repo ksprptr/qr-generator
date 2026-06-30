@@ -1,6 +1,6 @@
 {
   "name": "qr-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Modern QR code generator for permanent QR codes that never expire — fully client-side, no backend and no tracking.",
   "private": true,
   "author": {
