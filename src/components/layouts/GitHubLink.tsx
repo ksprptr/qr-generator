@@ -20,9 +20,9 @@ export default function GitHubLink() {
         layout
         onHoverStart={() => setHovered(true)}
         onHoverEnd={() => setHovered(false)}
-        className='flex items-center rounded-full border border-zinc-200 bg-white p-2 text-sm text-zinc-900 shadow-sm hover:border-zinc-300'
+        className='flex items-center rounded-full border border-zinc-200 bg-white p-2 text-sm text-zinc-900 shadow-sm hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:border-zinc-700'
         transition={{ type: 'spring', stiffness: 400, damping: 30 }}>
-        <GitHubIcon className='h-5 w-5 fill-zinc-900' />
+        <GitHubIcon className='h-5 w-5 fill-zinc-900 dark:fill-zinc-100' />
         <AnimatePresence initial={false}>
           {hovered && (
             <motion.span

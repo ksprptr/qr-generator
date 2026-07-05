@@ -32,7 +32,7 @@ export default function QrMenu({ currentType }: Props) {
               className={`flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200 ease-out ${
                 active
                   ? 'bg-indigo-500 text-white shadow-sm shadow-indigo-500/30'
-                  : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
+                  : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700'
               }`}>
               <Icon icon={icon} className='h-4 w-4' />
               {label}

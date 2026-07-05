@@ -1,6 +1,7 @@
 import FooterBadge from '@/components/layouts/FooterBadge';
 import GitHubLink from '@/components/layouts/GitHubLink';
 import Layout from '@/components/layouts/Layout';
+import ThemeProvider from '@/components/layouts/ThemeProvider';
 import { metadataConfig } from '@/configs/app.config';
 
 import type { Metadata } from 'next';
@@ -25,20 +26,22 @@ export const metadata: Metadata = {
  */
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <body
-        className={`${poppins.className} relative min-h-screen overflow-x-hidden bg-zinc-50 text-zinc-900 antialiased`}>
-        {/* Decorative background */}
-        <div className='pointer-events-none fixed inset-0 -z-10 overflow-hidden'>
-          <div className='animate-float absolute -top-32 -left-32 h-96 w-96 rounded-full bg-indigo-200/20 blur-3xl' />
-          <div className='animate-float-slow absolute top-40 -right-32 h-96 w-96 rounded-full bg-indigo-300/15 blur-3xl' />
-          <div className='animate-float absolute bottom-0 left-1/3 h-96 w-96 rounded-full bg-indigo-100/20 blur-3xl' />
-        </div>
+        className={`${poppins.className} relative min-h-screen overflow-x-hidden bg-zinc-50 text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-50`}>
+        <ThemeProvider>
+          {/* Decorative background */}
+          <div className='pointer-events-none fixed inset-0 -z-10 overflow-hidden'>
+            <div className='animate-float absolute -top-32 -left-32 h-96 w-96 rounded-full bg-indigo-200/20 blur-3xl dark:bg-indigo-500/10' />
+            <div className='animate-float-slow absolute top-40 -right-32 h-96 w-96 rounded-full bg-indigo-300/15 blur-3xl dark:bg-indigo-600/10' />
+            <div className='animate-float absolute bottom-0 left-1/3 h-96 w-96 rounded-full bg-indigo-100/20 blur-3xl dark:bg-indigo-400/10' />
+          </div>
 
-        <Layout>{children}</Layout>
+          <Layout>{children}</Layout>
 
-        <FooterBadge />
-        <GitHubLink />
+          <FooterBadge />
+          <GitHubLink />
+        </ThemeProvider>
       </body>
     </html>
   );
