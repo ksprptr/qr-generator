@@ -1,6 +1,12 @@
 @import 'tailwindcss';
 
 /**
+ * Drive the `dark:` variant from the `.dark` class that next-themes toggles
+ * on <html> (based on the system `prefers-color-scheme`).
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/**
  * Base styles
  */
 @layer base {
@@ -32,11 +38,11 @@
   }
 
   ::-webkit-scrollbar {
-    @apply h-1 w-1 bg-zinc-100;
+    @apply h-1 w-1 bg-zinc-100 dark:bg-zinc-800;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-zinc-300;
+    @apply rounded-full bg-zinc-300 dark:bg-zinc-600;
   }
 }
 

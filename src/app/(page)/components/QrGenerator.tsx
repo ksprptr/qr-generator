@@ -29,11 +29,11 @@ export default function QrGenerator({ type }: Props) {
         initial={{ x: -30, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-        className='flex flex-col gap-6 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-8'>
+        className='flex flex-col gap-6 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-8 dark:border-zinc-800 dark:bg-zinc-900'>
         <FieldsSelector type={type} form={form} setForm={setForm} />
 
         {/* Error correction */}
-        <div className='border-t border-zinc-200 pt-6'>
+        <div className='border-t border-zinc-200 pt-6 dark:border-zinc-800'>
           <Field label='Error correction'>
             <select
               value={form.level}

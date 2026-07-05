@@ -75,9 +75,9 @@ export default function QrResult({ payload, level }: Props) {
       initial={{ y: 30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 320, damping: 28, delay: 0.08 }}
-      className='flex flex-col gap-5 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm'>
+      className='flex flex-col gap-5 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900'>
       {/* Preview */}
-      <div className='mx-auto flex aspect-square w-full max-w-70 items-center justify-center overflow-hidden rounded-2xl bg-zinc-50 p-4'>
+      <div className='mx-auto flex aspect-square w-full max-w-70 items-center justify-center overflow-hidden rounded-2xl bg-zinc-50 p-4 dark:bg-zinc-950'>
         <AnimatePresence mode='wait'>
           {hasContent && svg ? (
             <motion.div
@@ -96,15 +96,15 @@ export default function QrResult({ payload, level }: Props) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className='flex flex-col items-center gap-3 text-center text-zinc-300'>
+              className='flex flex-col items-center gap-3 text-center text-zinc-300 dark:text-zinc-600'>
               <Icon icon='QrCode' className='h-16 w-16' />
-              <p className='text-sm text-zinc-400'>Fill in the form to generate a code</p>
+              <p className='text-sm text-zinc-400 dark:text-zinc-500'>Fill in the form to generate a code</p>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {error && <p className='text-center text-sm text-indigo-600'>{error}</p>}
+      {error && <p className='text-center text-sm text-indigo-600 dark:text-indigo-400'>{error}</p>}
 
       {/* Actions */}
       <div className='flex flex-col gap-2.5'>
@@ -121,7 +121,7 @@ export default function QrResult({ payload, level }: Props) {
             type='button'
             onClick={downloadSvg}
             disabled={!hasContent}
-            className='flex items-center justify-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 transition-colors duration-150 ease-out hover:bg-zinc-50'>
+            className='flex items-center justify-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 transition-colors duration-150 ease-out hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700'>
             <Icon icon='ArrowDownTray' className='h-4 w-4' />
             SVG
           </button>
@@ -130,7 +130,7 @@ export default function QrResult({ payload, level }: Props) {
           type='button'
           onClick={copyImage}
           disabled={!hasContent || copied}
-          className='flex w-full items-center justify-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 transition-colors duration-150 ease-out hover:bg-zinc-50'>
+          className='flex w-full items-center justify-center gap-2 rounded-xl border border-zinc-300 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-700 transition-colors duration-150 ease-out hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700'>
           <Icon
             icon={copied ? 'Check' : 'ClipboardDocument'}
             className={`h-4 w-4 ${copied ? 'text-indigo-500' : ''}`}
@@ -139,7 +139,7 @@ export default function QrResult({ payload, level }: Props) {
         </button>
       </div>
 
-      <p className='text-center text-xs text-zinc-400'>
+      <p className='text-center text-xs text-zinc-400 dark:text-zinc-500'>
         This QR code never expires — the data lives inside it.
       </p>
     </motion.section>

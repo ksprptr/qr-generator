@@ -16,7 +16,7 @@ export default function FooterBadge() {
         layout
         onHoverStart={() => setHovered(true)}
         onHoverEnd={() => setHovered(false)}
-        className='flex items-center rounded-full border border-zinc-200 bg-white px-2 py-0.5 text-sm text-zinc-900 shadow-sm hover:border-zinc-300'
+        className='flex items-center rounded-full border border-zinc-200 bg-white px-2 py-0.5 text-sm text-zinc-900 shadow-sm hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:border-zinc-700'
         transition={{ type: 'spring', stiffness: 400, damping: 30 }}>
         <span className='text-2xl'>&copy;</span>
         <AnimatePresence initial={false}>

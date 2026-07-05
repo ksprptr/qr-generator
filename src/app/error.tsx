@@ -11,8 +11,8 @@ interface Props {
 export default function ErrorBoundary({ reset }: Props) {
   return (
     <div className='flex min-h-screen flex-col items-center justify-center gap-4 px-4 text-center'>
-      <h1 className='text-2xl font-bold text-zinc-900'>Something went wrong</h1>
-      <p className='max-w-md text-zinc-500'>
+      <h1 className='text-2xl font-bold text-zinc-900 dark:text-zinc-50'>Something went wrong</h1>
+      <p className='max-w-md text-zinc-500 dark:text-zinc-400'>
         An unexpected error occurred while rendering the page. Please try again.
       </p>
       <button

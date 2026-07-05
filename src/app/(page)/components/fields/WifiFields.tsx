@@ -54,7 +54,7 @@ export default function WifiFields({ form, setForm }: FieldsProps) {
         )}
       </div>
 
-      <label className='flex cursor-pointer items-center gap-2 text-sm text-zinc-600'>
+      <label className='flex cursor-pointer items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400'>
         <input
           type='checkbox'
           checked={wifi.hidden}
