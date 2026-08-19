@@ -6,7 +6,7 @@ import Field, { inputClassName } from '../shared/Field';
 
 /**
  * Component representing the contact (vCard) form fields
- */
+ **/
 export default function ContactFields({ form, setForm }: FieldsProps) {
   const { contact } = form;
 

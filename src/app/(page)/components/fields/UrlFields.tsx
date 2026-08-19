@@ -6,7 +6,7 @@ import Field, { inputClassName } from '../shared/Field';
 
 /**
  * Component representing the URL form fields
- */
+ **/
 export default function UrlFields({ form, setForm }: FieldsProps) {
   return (
     <Field label='URL address'>

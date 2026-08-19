@@ -1,0 +1,38 @@
+# Runs the app. There is no backend and no database — the QR codes are generated in the browser.
+#
+# Usage:
+#   docker compose up -d --build          # build + start on http://localhost:3000
+#   docker compose logs -f qr-generator   # stream logs
+#   docker compose down                   # stop
+#
+# Build args / env: root .env (see .env.example)
+
+services:
+  qr-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_URL: '${APP_URL:-http://localhost:3000}'
+    image: qr-generator
+    container_name: qr-generator
+    restart: unless-stopped
+    environment:
+      APP_URL: '${APP_URL:-http://localhost:3000}'
+    ports:
+      # Bound to loopback: the container is meant to sit behind a reverse proxy on the
+      # same host. Drop the `127.0.0.1:` prefix to expose it on the network directly.
+      - '127.0.0.1:${APP_PORT:-3000}:3000'
+    networks:
+      - qr_generator_net
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://localhost:3000/api/health || exit 1']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  qr_generator_net:
+    driver: bridge
+    name: qr_generator_net

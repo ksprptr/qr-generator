@@ -7,7 +7,7 @@ import Field, { inputClassName } from '../shared/Field';
 
 /**
  * Component representing the WiFi form fields
- */
+ **/
 export default function WifiFields({ form, setForm }: FieldsProps) {
   const { wifi } = form;
 
@@ -16,7 +16,9 @@ export default function WifiFields({ form, setForm }: FieldsProps) {
       <Field label='Network name (SSID)'>
         <input
           value={wifi.ssid}
-          onChange={(event) => setForm((prev) => ({ ...prev, wifi: { ...prev.wifi, ssid: event.target.value } }))}
+          onChange={(event) =>
+            setForm((prev) => ({ ...prev, wifi: { ...prev.wifi, ssid: event.target.value } }))
+          }
           placeholder='My WiFi'
           className={inputClassName}
         />
@@ -45,7 +47,10 @@ export default function WifiFields({ form, setForm }: FieldsProps) {
               type='text'
               value={wifi.password}
               onChange={(event) =>
-                setForm((prev) => ({ ...prev, wifi: { ...prev.wifi, password: event.target.value } }))
+                setForm((prev) => ({
+                  ...prev,
+                  wifi: { ...prev.wifi, password: event.target.value },
+                }))
               }
               placeholder='••••••••'
               className={inputClassName}

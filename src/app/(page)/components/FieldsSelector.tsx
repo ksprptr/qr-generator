@@ -14,7 +14,7 @@ interface Props extends FieldsProps {
 
 /**
  * Component representing a fields selector
- */
+ **/
 export default function FieldsSelector({ type, form, setForm }: Props) {
   switch (type) {
     case QR_TYPES.URL:

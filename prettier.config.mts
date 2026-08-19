@@ -9,7 +9,6 @@ const config: Config = {
   singleQuote: true,
   jsxSingleQuote: true,
   bracketSameLine: true,
-  excludedFiles: ['**/dist/**', '**/build/**', '**/node_modules/**', '**/public/**', '**/.next/**'],
   plugins: ['prettier-plugin-tailwindcss'],
 };
 

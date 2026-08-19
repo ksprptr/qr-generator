@@ -6,7 +6,7 @@ import Field, { inputClassName } from '../shared/Field';
 
 /**
  * Component representing the SMS form fields
- */
+ **/
 export default function SmsFields({ form, setForm }: FieldsProps) {
   const { sms } = form;
 
@@ -16,7 +16,9 @@ export default function SmsFields({ form, setForm }: FieldsProps) {
         <input
           type='tel'
           value={sms.number}
-          onChange={(event) => setForm((prev) => ({ ...prev, sms: { ...prev.sms, number: event.target.value } }))}
+          onChange={(event) =>
+            setForm((prev) => ({ ...prev, sms: { ...prev.sms, number: event.target.value } }))
+          }
           placeholder='+420 123 456 789'
           className={inputClassName}
         />

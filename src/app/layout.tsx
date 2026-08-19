@@ -1,10 +1,11 @@
 import FooterBadge from '@/components/layouts/FooterBadge';
 import GitHubLink from '@/components/layouts/GitHubLink';
 import Layout from '@/components/layouts/Layout';
+import PikachuEasterEgg from '@/components/layouts/PikachuEasterEgg';
 import ThemeProvider from '@/components/layouts/ThemeProvider';
-import { metadataConfig } from '@/configs/app.config';
+import { appConfig, metadataConfig } from '@/configs/app.config';
 
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Poppins } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 
@@ -15,18 +16,64 @@ const poppins = Poppins({
   weight: ['400', '500', '700'],
 });
 
+const siteTitle = `${metadataConfig.title} · ${metadataConfig.tagline}`;
+
+/** Relative to `metadataBase`, so the absolute URLs are derived from `APP_URL`. */
+const images = [{ url: '/api/og', width: 1200, height: 630, alt: siteTitle }];
+
 export const metadata: Metadata = {
-  title: metadataConfig.title,
+  metadataBase: new URL(appConfig.urls.appUrl),
+  title: {
+    default: siteTitle,
+    template: `${metadataConfig.title} · %s`,
+  },
   description: metadataConfig.description,
+  applicationName: metadataConfig.title,
   keywords: metadataConfig.keywords,
+  authors: [{ name: metadataConfig.author.name, url: metadataConfig.author.url }],
+  creator: metadataConfig.author.name,
+  publisher: metadataConfig.author.name,
+  category: 'technology',
+  appleWebApp: { title: metadataConfig.shortTitle },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+  },
+  openGraph: {
+    title: siteTitle,
+    description: metadataConfig.description,
+    type: 'website',
+    url: appConfig.urls.appUrl,
+    siteName: metadataConfig.shortTitle,
+    locale: 'en_US',
+    images,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteTitle,
+    description: metadataConfig.description,
+    images,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: metadataConfig.colors.background },
+    { media: '(prefers-color-scheme: dark)', color: '#09090b' },
+  ],
 };
 
 /**
  * Component representing a root layout
- */
+ **/
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html
+      lang='en'
+      // Opts route transitions out of the `scroll-smooth` that globals.css sets on every element
+      data-scroll-behavior='smooth'
+      suppressHydrationWarning>
       <body
         className={`${poppins.className} relative min-h-screen overflow-x-hidden bg-zinc-50 text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-50`}>
         <ThemeProvider>
@@ -41,6 +88,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
 
           <FooterBadge />
           <GitHubLink />
+          <PikachuEasterEgg />
         </ThemeProvider>
       </body>
     </html>

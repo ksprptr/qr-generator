@@ -37,12 +37,49 @@
       no-repeat 96% 50%;
   }
 
+  /**
+   * Custom scrollbar. The `dark:` variant can't be used on scrollbar pseudo-elements
+   * (they don't take part in the descendant matching it compiles to), so the colors
+   * come from variables that `.dark` overrides below.
+   */
+  :root {
+    --scrollbar-track: var(--color-zinc-100);
+    --scrollbar-thumb: var(--color-zinc-300);
+    --scrollbar-thumb-hover: var(--color-zinc-400);
+  }
+
+  .dark {
+    --scrollbar-track: var(--color-zinc-900);
+    --scrollbar-thumb: var(--color-zinc-700);
+    --scrollbar-thumb-hover: var(--color-zinc-600);
+  }
+
+  /* Firefox + Chrome 121+ */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+
   ::-webkit-scrollbar {
-    @apply h-1 w-1 bg-zinc-100 dark:bg-zinc-800;
+    @apply h-2.5 w-2.5;
+  }
+
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background: var(--scrollbar-track);
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-zinc-300 dark:bg-zinc-600;
+    @apply rounded-full;
+    background: var(--scrollbar-thumb);
+    /* Inset the thumb so it reads as a pill floating in the track. */
+    border: 2px solid var(--scrollbar-track);
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+    background-clip: padding-box;
   }
 }
 

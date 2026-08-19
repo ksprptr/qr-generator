@@ -6,7 +6,7 @@ import Field, { inputClassName } from '../shared/Field';
 
 /**
  * Component representing the text form fields
- */
+ **/
 export default function TextFields({ form, setForm }: FieldsProps) {
   return (
     <Field label='Text'>
