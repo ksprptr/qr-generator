@@ -26,14 +26,12 @@ services:
     environment:
       APP_URL: '${APP_URL:-http://localhost:3000}'
     ports:
-      # Bound to loopback: the container is meant to sit behind a reverse proxy on the
-      # same host. Drop the `127.0.0.1:` prefix to expose it on the network directly.
+      # Bound to loopback for a same-host reverse proxy; drop the prefix to expose it directly.
       - '127.0.0.1:${APP_PORT:-3000}:3000'
     networks:
       - qr_generator_net
     healthcheck:
-      # 127.0.0.1, not localhost: that also resolves to ::1, which busybox wget tries first
-      # and the server binds IPv4 only — so `localhost` fails outright.
+      # 127.0.0.1, not localhost: that also resolves to ::1, which the IPv4-only server refuses.
       test: ['CMD-SHELL', 'wget -qO- http://127.0.0.1:3000/api/health || exit 1']
       interval: 30s
       timeout: 5s

@@ -4,8 +4,7 @@ import prettier from 'eslint-plugin-prettier';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import unusedImports from 'eslint-plugin-unused-imports';
 
-// `eslint-config-next` already registers the react, react-hooks, import, jsx-a11y and
-// @typescript-eslint plugins (and the TS parser), so this config only adds what is missing.
+// `eslint-config-next` already registers the react, import and @typescript-eslint plugins.
 export default defineConfig([
   ...nextVitals,
   {

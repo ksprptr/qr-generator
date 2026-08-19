@@ -24,7 +24,6 @@ const nextConfig: NextConfig = {
   // Self-contained server bundle (server.js + a minimal node_modules) for the Docker runner.
   output: 'standalone',
 
-  // Don't advertise the framework in every response.
   poweredByHeader: false,
 
   // Pin the workspace root so Turbopack doesn't infer a parent directory (which fails the build).

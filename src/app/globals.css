@@ -1,14 +1,8 @@
 @import 'tailwindcss';
 
-/**
- * Drive the `dark:` variant from the `.dark` class that next-themes toggles
- * on <html> (based on the system `prefers-color-scheme`).
- */
+/* Drive the `dark:` variant from the `.dark` class that next-themes toggles on <html>. */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/**
- * Base styles
- */
 @layer base {
   * {
     @apply scroll-smooth;
@@ -37,11 +31,7 @@
       no-repeat 96% 50%;
   }
 
-  /**
-   * Custom scrollbar. The `dark:` variant can't be used on scrollbar pseudo-elements
-   * (they don't take part in the descendant matching it compiles to), so the colors
-   * come from variables that `.dark` overrides below.
-   */
+  /* The `dark:` variant can't target scrollbar pseudo-elements, so `.dark` overrides these. */
   :root {
     --scrollbar-track: var(--color-zinc-100);
     --scrollbar-thumb: var(--color-zinc-300);
@@ -83,9 +73,7 @@
   }
 }
 
-/**
- * Decorative animated background blobs
- */
+/* Decorative animated background blobs. */
 @keyframes float {
   0%,
   100% {
