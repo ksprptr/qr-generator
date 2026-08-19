@@ -15,6 +15,7 @@ export default function GitHubLink() {
     <Link
       href='https://github.com/ksprptr/qr-generator'
       target='_blank'
+      rel='noopener noreferrer'
       className='fixed right-4 bottom-4 rounded-full'>
       <motion.div
         layout

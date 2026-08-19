@@ -17,6 +17,12 @@ services:
     image: qr-generator
     container_name: qr-generator
     restart: unless-stopped
+    # The server only reads its own bundle, so deny writes, capabilities and privilege escalation.
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     environment:
       APP_URL: '${APP_URL:-http://localhost:3000}'
     ports:
@@ -26,7 +32,9 @@ services:
     networks:
       - qr_generator_net
     healthcheck:
-      test: ['CMD-SHELL', 'wget -qO- http://localhost:3000/api/health || exit 1']
+      # 127.0.0.1, not localhost: that also resolves to ::1, which busybox wget tries first
+      # and the server binds IPv4 only — so `localhost` fails outright.
+      test: ['CMD-SHELL', 'wget -qO- http://127.0.0.1:3000/api/health || exit 1']
       interval: 30s
       timeout: 5s
       retries: 3

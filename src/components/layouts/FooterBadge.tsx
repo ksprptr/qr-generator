@@ -11,7 +11,11 @@ export default function FooterBadge() {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <Link href='https://ksprptr.dev' target='_blank' className='fixed bottom-4 left-4 rounded-full'>
+    <Link
+      href='https://ksprptr.dev'
+      target='_blank'
+      rel='noopener noreferrer'
+      className='fixed bottom-4 left-4 rounded-full'>
       <motion.div
         layout
         onHoverStart={() => setHovered(true)}

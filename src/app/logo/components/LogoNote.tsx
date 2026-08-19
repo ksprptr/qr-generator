@@ -17,7 +17,11 @@ export default function LogoNote() {
       transition={{ type: 'spring', stiffness: 320, damping: 26, delay: 0.42 }}
       className='text-center text-xs text-zinc-400 dark:text-zinc-500'>
       The mark is built from the{' '}
-      <Link href='https://lucide.dev/icons/qr-code' target='_blank' className={linkClassName}>
+      <Link
+        href='https://lucide.dev/icons/qr-code'
+        target='_blank'
+        rel='noopener noreferrer'
+        className={linkClassName}>
         lucide <code>qr-code</code> icon
       </Link>{' '}
       (ISC licensed). Need the generator instead?{' '}
