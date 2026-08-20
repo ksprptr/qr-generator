@@ -1,4 +1,5 @@
-# Runs the app. There is no backend and no database — the QR codes are generated in the browser.
+# Local and self-hosted runs only — production builds and runs the Dockerfile directly.
+# There is no backend and no database — the QR codes are generated in the browser.
 #
 # Usage:
 #   docker compose up -d --build          # build + start on http://localhost:3000
@@ -30,13 +31,6 @@ services:
       - '127.0.0.1:${APP_PORT:-3000}:3000'
     networks:
       - qr_generator_net
-    healthcheck:
-      # 127.0.0.1, not localhost: that also resolves to ::1, which the IPv4-only server refuses.
-      test: ['CMD-SHELL', 'wget -qO- http://127.0.0.1:3000/api/health || exit 1']
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
 
 networks:
   qr_generator_net:
