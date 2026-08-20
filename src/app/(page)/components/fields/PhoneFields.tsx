@@ -6,7 +6,7 @@ import Field, { inputClassName } from '../shared/Field';
 
 /**
  * Component representing the phone form fields
- */
+ **/
 export default function PhoneFields({ form, setForm }: FieldsProps) {
   return (
     <Field label='Phone number'>

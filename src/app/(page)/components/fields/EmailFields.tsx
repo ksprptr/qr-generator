@@ -6,7 +6,7 @@ import Field, { inputClassName } from '../shared/Field';
 
 /**
  * Component representing the email form fields
- */
+ **/
 export default function EmailFields({ form, setForm }: FieldsProps) {
   const { email } = form;
 
@@ -16,7 +16,9 @@ export default function EmailFields({ form, setForm }: FieldsProps) {
         <input
           type='email'
           value={email.to}
-          onChange={(event) => setForm((prev) => ({ ...prev, email: { ...prev.email, to: event.target.value } }))}
+          onChange={(event) =>
+            setForm((prev) => ({ ...prev, email: { ...prev.email, to: event.target.value } }))
+          }
           placeholder='name@example.com'
           className={inputClassName}
         />

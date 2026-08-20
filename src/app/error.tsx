@@ -7,7 +7,7 @@ interface Props {
 
 /**
  * Route-level error boundary shown when an unexpected render error occurs.
- */
+ **/
 export default function ErrorBoundary({ reset }: Props) {
   return (
     <div className='flex min-h-screen flex-col items-center justify-center gap-4 px-4 text-center'>

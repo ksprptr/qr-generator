@@ -4,7 +4,7 @@ import Icon from '@/components/common/Icon';
 
 import { QR_MENU } from '../data/qr.data';
 import { QrType } from '../enums/qr.enums';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import Link from 'next/link';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 
 /**
  * Component representing the QR type menu
- */
+ **/
 export default function QrMenu({ currentType }: Props) {
   return (
     <motion.ul

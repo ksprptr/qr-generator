@@ -5,6 +5,7 @@ node_modules/
 # Build outputs
 dist/
 .next/
+next-env.d.ts
 .turbo/
 out/
 build/
@@ -13,6 +14,7 @@ build/
 .env
 .env.*
 !.env.example
+!.env.test.example
 
 # Claude
 CLAUDE.md
@@ -38,3 +40,6 @@ coverage/
 
 # Misc
 *.tsbuildinfo
+
+# Reference material (not part of the app)
+example/

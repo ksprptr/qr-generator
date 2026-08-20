@@ -1,14 +1,8 @@
 @import 'tailwindcss';
 
-/**
- * Drive the `dark:` variant from the `.dark` class that next-themes toggles
- * on <html> (based on the system `prefers-color-scheme`).
- */
+/* Drive the `dark:` variant from the `.dark` class that next-themes toggles on <html>. */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/**
- * Base styles
- */
 @layer base {
   * {
     @apply scroll-smooth;
@@ -37,18 +31,95 @@
       no-repeat 96% 50%;
   }
 
+  /* The `dark:` variant can't target scrollbar pseudo-elements, so `.dark` overrides these. */
+  :root {
+    --scrollbar-track: var(--color-zinc-100);
+    --scrollbar-thumb: var(--color-zinc-300);
+    --scrollbar-thumb-hover: var(--color-zinc-400);
+  }
+
+  .dark {
+    --scrollbar-track: var(--color-zinc-900);
+    --scrollbar-thumb: var(--color-zinc-700);
+    --scrollbar-thumb-hover: var(--color-zinc-600);
+  }
+
+  /* Firefox + Chrome 121+ */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+
   ::-webkit-scrollbar {
-    @apply h-1 w-1 bg-zinc-100 dark:bg-zinc-800;
+    @apply h-2.5 w-2.5;
+  }
+
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background: var(--scrollbar-track);
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-zinc-300 dark:bg-zinc-600;
+    @apply rounded-full;
+    background: var(--scrollbar-thumb);
+    /* Inset the thumb so it reads as a pill floating in the track. */
+    border: 2px solid var(--scrollbar-track);
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+    background-clip: padding-box;
   }
 }
 
-/**
- * Decorative animated background blobs
- */
+/* Wraps the app so the JavaScript-off screen can hide it with a single rule; generates no box. */
+.app-shell {
+  display: contents;
+}
+
+/* JavaScript-off screen — themed with `prefers-color-scheme`, as next-themes never adds `.dark`. */
+.noscript-screen {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.noscript-eyebrow {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-indigo-500);
+}
+
+.noscript-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-zinc-900);
+}
+
+.noscript-text {
+  max-width: 28rem;
+  color: var(--color-zinc-500);
+}
+
+@media (prefers-color-scheme: dark) {
+  .noscript-title {
+    color: var(--color-zinc-50);
+  }
+
+  .noscript-text {
+    color: var(--color-zinc-400);
+  }
+}
+
+/* Decorative animated background blobs. */
 @keyframes float {
   0%,
   100% {

@@ -20,6 +20,15 @@ export interface QrFormProps {
     url: string;
   };
   level: ErrorLevel;
+  /** Pixel edge length of the exported PNG / SVG. */
+  size: number;
+}
+
+export interface SelectOption<T> {
+  value: T;
+  label: string;
+  /** One-line explanation shown under the select for the picked option. */
+  hint: string;
 }
 
 export interface MenuItem {

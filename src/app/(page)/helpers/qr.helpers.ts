@@ -5,15 +5,18 @@ import QRCode from 'qrcode';
 
 /**
  * Function to escape special characters for the WiFi QR format
- */
+ **/
 const escapeWifi = (value: string): string => value.replace(/([\\;,:"])/g, '\\$1');
 
 /**
- * Function to build the raw string that gets encoded into the QR code.
- *
- * Everything is encoded directly into the QR — there is no backend, no redirect
- * and no link shortener — so the generated codes never expire.
- */
+ * Function to escape a vCard text value (RFC 2426)
+ **/
+const escapeVCard = (value: string): string =>
+  value.replace(/([\\;,])/g, '\\$1').replace(/\r?\n/g, '\\n');
+
+/**
+ * Function to build the raw string that gets encoded into the QR code
+ **/
 export const buildPayload = (type: QrType, form: QrFormProps): string => {
   switch (type) {
     case QR_TYPES.URL: {
@@ -31,12 +34,13 @@ export const buildPayload = (type: QrType, form: QrFormProps): string => {
       const { to, subject, body } = form.email;
       if (!to.trim()) return '';
 
-      const params = new URLSearchParams();
-      if (subject) params.set('subject', subject);
-      if (body) params.set('body', body);
+      // Not URLSearchParams: it encodes a space as `+`, which mail clients take literally.
+      const params = [
+        subject ? `subject=${encodeURIComponent(subject)}` : '',
+        body ? `body=${encodeURIComponent(body)}` : '',
+      ].filter(Boolean);
 
-      const query = params.toString();
-      return `mailto:${to.trim()}${query ? `?${query}` : ''}`;
+      return `mailto:${to.trim()}${params.length ? `?${params.join('&')}` : ''}`;
     }
 
     case QR_TYPES.PHONE: {
@@ -69,20 +73,23 @@ export const buildPayload = (type: QrType, form: QrFormProps): string => {
       const contact = form.contact;
       if (!contact.firstName.trim() && !contact.lastName.trim() && !contact.org.trim()) return '';
 
+      const { firstName, lastName, org, title, phone, email, url } = contact;
+
       const lines = [
         'BEGIN:VCARD',
         'VERSION:3.0',
-        `N:${contact.lastName};${contact.firstName};;;`,
-        `FN:${`${contact.firstName} ${contact.lastName}`.trim()}`,
-        contact.org ? `ORG:${contact.org}` : '',
-        contact.title ? `TITLE:${contact.title}` : '',
-        contact.phone ? `TEL;TYPE=CELL:${contact.phone}` : '',
-        contact.email ? `EMAIL:${contact.email}` : '',
-        contact.url ? `URL:${contact.url}` : '',
+        `N:${escapeVCard(lastName)};${escapeVCard(firstName)};;;`,
+        `FN:${escapeVCard(`${firstName} ${lastName}`.trim())}`,
+        org ? `ORG:${escapeVCard(org)}` : '',
+        title ? `TITLE:${escapeVCard(title)}` : '',
+        phone ? `TEL;TYPE=CELL:${escapeVCard(phone)}` : '',
+        email ? `EMAIL:${escapeVCard(email)}` : '',
+        url ? `URL:${escapeVCard(url)}` : '',
         'END:VCARD',
       ].filter(Boolean);
 
-      return lines.join('\n');
+      // vCard lines are CRLF-delimited; a bare \n trips the stricter phone parsers.
+      return lines.join('\r\n');
     }
 
     default:
@@ -91,33 +98,44 @@ export const buildPayload = (type: QrType, form: QrFormProps): string => {
 };
 
 /**
- * Function to render the payload as an SVG string for the live preview
- */
-export const renderQrSvg = (payload: string, level: ErrorLevel): Promise<string> =>
+ * Function to render the payload as an SVG string — without a size it carries only a `viewBox`
+ **/
+export const renderQrSvg = (payload: string, level: ErrorLevel, size?: number): Promise<string> =>
   QRCode.toString(payload, {
     type: 'svg',
     errorCorrectionLevel: level,
     margin: QR_MARGIN,
+    width: size,
     color: { dark: QR_FOREGROUND, light: QR_BACKGROUND },
   });
 
 /**
- * Function to render the payload onto a canvas at the given pixel scale, used for
- * PNG export and clipboard copying
- */
+ * Function to render the payload onto a canvas, used for PNG export and clipboard copying
+ **/
 export const renderQrCanvas = async (
   payload: string,
   level: ErrorLevel,
-  scale: number,
+  size: number,
 ): Promise<HTMLCanvasElement> => {
   const canvas = document.createElement('canvas');
 
   await QRCode.toCanvas(canvas, payload, {
     errorCorrectionLevel: level,
     margin: QR_MARGIN,
-    scale,
+    width: size,
     color: { dark: QR_FOREGROUND, light: QR_BACKGROUND },
   });
 
   return canvas;
+};
+
+/**
+ * Function to count the modules (the little squares) along one edge of the code
+ **/
+export const getQrModuleCount = (payload: string, level: ErrorLevel): number => {
+  try {
+    return QRCode.create(payload, { errorCorrectionLevel: level }).modules.size;
+  } catch {
+    return 0;
+  }
 };
