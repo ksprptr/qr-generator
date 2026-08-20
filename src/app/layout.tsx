@@ -76,20 +76,40 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
       suppressHydrationWarning>
       <body
         className={`${poppins.className} relative min-h-screen overflow-x-hidden bg-zinc-50 text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-50`}>
-        <ThemeProvider>
-          {/* Decorative background */}
-          <div className='pointer-events-none fixed inset-0 -z-10 overflow-hidden'>
-            <div className='animate-float absolute -top-32 -left-32 h-96 w-96 rounded-full bg-indigo-200/20 blur-3xl dark:bg-indigo-500/10' />
-            <div className='animate-float-slow absolute top-40 -right-32 h-96 w-96 rounded-full bg-indigo-300/15 blur-3xl dark:bg-indigo-600/10' />
-            <div className='animate-float absolute bottom-0 left-1/3 h-96 w-96 rounded-full bg-indigo-100/20 blur-3xl dark:bg-indigo-400/10' />
+        <div className='app-shell'>
+          <ThemeProvider>
+            {/* Decorative background */}
+            <div className='pointer-events-none fixed inset-0 -z-10 overflow-hidden'>
+              <div className='animate-float absolute -top-32 -left-32 h-96 w-96 rounded-full bg-indigo-200/20 blur-3xl dark:bg-indigo-500/10' />
+              <div className='animate-float-slow absolute top-40 -right-32 h-96 w-96 rounded-full bg-indigo-300/15 blur-3xl dark:bg-indigo-600/10' />
+              <div className='animate-float absolute bottom-0 left-1/3 h-96 w-96 rounded-full bg-indigo-100/20 blur-3xl dark:bg-indigo-400/10' />
+            </div>
+
+            <Layout>{children}</Layout>
+
+            <FooterBadge />
+            <GitHubLink />
+            <PikachuEasterEgg />
+          </ThemeProvider>
+        </div>
+
+        <noscript>
+          <style>{`
+            noscript { display: block; }
+            .app-shell { display: none !important; }
+            body { background: var(--color-zinc-50); }
+            @media (prefers-color-scheme: dark) { body { background: var(--color-zinc-950); } }
+          `}</style>
+          <div className='noscript-screen'>
+            <p className='noscript-eyebrow'>JavaScript required</p>
+            <h1 className='noscript-title'>This app needs JavaScript</h1>
+            <p className='noscript-text'>
+              QR codes are generated entirely in your browser — nothing is ever uploaded — so the
+              generator cannot run with JavaScript turned off. Enable it for this site and reload
+              the page.
+            </p>
           </div>
-
-          <Layout>{children}</Layout>
-
-          <FooterBadge />
-          <GitHubLink />
-          <PikachuEasterEgg />
-        </ThemeProvider>
+        </noscript>
       </body>
     </html>
   );
