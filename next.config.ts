@@ -34,6 +34,14 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        // Never let the browser serve a stale worker; the global CSP below already covers it.
+        source: '/sw.js',
+        headers: [
+          { key: 'Content-Type', value: 'application/javascript; charset=utf-8' },
+          { key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' },
+        ],
+      },
+      {
         source: '/:path*',
         headers: [
           { key: 'Content-Security-Policy', value: contentSecurityPolicy },

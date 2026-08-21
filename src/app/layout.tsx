@@ -2,6 +2,7 @@ import FooterBadge from '@/components/layouts/FooterBadge';
 import GitHubLink from '@/components/layouts/GitHubLink';
 import Layout from '@/components/layouts/Layout';
 import PikachuEasterEgg from '@/components/layouts/PikachuEasterEgg';
+import ServiceWorker from '@/components/layouts/ServiceWorker';
 import ThemeProvider from '@/components/layouts/ThemeProvider';
 import { appConfig, metadataConfig } from '@/configs/app.config';
 
@@ -90,6 +91,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
             <FooterBadge />
             <GitHubLink />
             <PikachuEasterEgg />
+            <ServiceWorker />
           </ThemeProvider>
         </div>
 
