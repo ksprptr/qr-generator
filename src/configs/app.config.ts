@@ -5,6 +5,7 @@ export const metadataConfig: MetadataConfig = {
   title: 'QR Generator',
   shortTitle: 'QR Generator',
   tagline: 'Permanent QR codes that never expire',
+  subtitle: 'Free, private QR codes that never expire.',
   description:
     'Generate modern QR codes that never expire. The data is encoded directly into the code — no backend, no tracking, no expiration. Free and easy to use!',
   keywords: [

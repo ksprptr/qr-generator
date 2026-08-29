@@ -7,6 +7,9 @@ import { ImageResponse } from 'next/og';
 /** The image is a constant — prerendering it stops an unauthenticated hit forcing a render. */
 export const dynamic = 'force-static';
 
+const wordmark = metadataConfig.title;
+const subtitle = metadataConfig.subtitle;
+
 /**
  * Function to load a Poppins weight from Google Fonts as font data for Satori
  **/
@@ -22,14 +25,12 @@ async function loadPoppins(weight: number, text: string): Promise<ArrayBuffer> {
   return fetch(resource[1]).then((response) => response.arrayBuffer());
 }
 
-const wordmark = metadataConfig.title;
-
 /**
- * OpenGraph image (`GET /api/og`) — the logo tile plus the wordmark
+ * OpenGraph image (`GET /api/og`) — the logo tile, the wordmark and the subtitle
  **/
 export async function GET() {
   // Falls back to Satori's built-in font, so an offline build still produces an image.
-  const font = await loadPoppins(600, wordmark).catch(() => null);
+  const font = await loadPoppins(600, `${wordmark}${subtitle}`).catch(() => null);
 
   return new ImageResponse(
     <div
@@ -55,8 +56,8 @@ export async function GET() {
             boxShadow: '0 24px 70px rgba(99,102,241,0.4)',
           }}>
           <svg
-            width='124'
-            height='124'
+            width='112'
+            height='112'
             viewBox={`0 0 ${logoConfig.icon.grid} ${logoConfig.icon.grid}`}
             fill='none'
             stroke={logoConfig.foreground}
@@ -71,12 +72,16 @@ export async function GET() {
           style={{
             display: 'flex',
             marginTop: 40,
-            fontSize: 104,
+            fontSize: 96,
             fontWeight: 600,
             letterSpacing: -2,
             color: '#18181b',
           }}>
           {wordmark}
+        </div>
+
+        <div style={{ display: 'flex', marginTop: 12, fontSize: 34, color: '#52525b' }}>
+          {subtitle}
         </div>
       </div>
     </div>,

@@ -20,8 +20,13 @@ const SPARKS = [
 /** How long a shout stays on screen. */
 const BURST_MS = 1400;
 
-/** Resting state — rotated a quarter turn behind the left edge, so only the head shows. */
-const HIDDEN = { x: '-70%', rotate: 96, scale: 0.9, opacity: 0.55 };
+const TRANSITION = { type: 'spring', stiffness: 320, damping: 24 } as const;
+
+/** Resting offset — carried by the wrapper, so the shout and the glow ride along with him. */
+const HIDDEN_OFFSET = { x: '-70%' };
+
+/** Resting pose — rotated a quarter turn behind the left edge, so only the head shows. */
+const HIDDEN_MASCOT = { rotate: 96, scale: 0.9, opacity: 0.55 };
 
 interface Burst {
   id: number;
@@ -44,7 +49,13 @@ export default function PikachuEasterEgg() {
 
   return (
     <div className='fixed bottom-20 left-0 z-20 hidden lg:block'>
-      <div className='relative'>
+      {/* One moving box for the mascot and its burst, so the shout always sits by his head. */}
+      <motion.div
+        initial={HIDDEN_OFFSET}
+        animate={HIDDEN_OFFSET}
+        whileHover={{ x: '-4%' }}
+        transition={TRANSITION}
+        className='relative w-24'>
         {/* Shout */}
         <AnimatePresence>
           {burst && (
@@ -100,11 +111,11 @@ export default function PikachuEasterEgg() {
           onClick={() =>
             setBurst((prev) => ({ id: (prev?.id ?? 0) + 1, clicks: prev ? prev.clicks + 1 : 0 }))
           }
-          initial={HIDDEN}
-          animate={HIDDEN}
-          whileHover={{ x: '-4%', rotate: 0, scale: 1, opacity: 1 }}
+          initial={HIDDEN_MASCOT}
+          animate={HIDDEN_MASCOT}
+          whileHover={{ rotate: 0, scale: 1, opacity: 1 }}
           whileTap={{ scale: 0.92 }}
-          transition={{ type: 'spring', stiffness: 320, damping: 24 }}
+          transition={TRANSITION}
           title='Pika pika!'
           aria-label='Pikachu'
           className='block cursor-pointer'>
@@ -126,7 +137,7 @@ export default function PikachuEasterEgg() {
             />
           </motion.div>
         </motion.button>
-      </div>
+      </motion.div>
     </div>
   );
 }

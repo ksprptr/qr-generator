@@ -1,5 +1,7 @@
 'use client';
 
+import { metadataConfig } from '@/configs/app.config';
+
 import { motion } from 'motion/react';
 
 /**
@@ -21,7 +23,7 @@ export default function Hero() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 320, damping: 26, delay: 0.05 }}
         className='mx-auto mt-4 max-w-xl text-base text-zinc-500 sm:text-lg dark:text-zinc-400'>
-        Free, private QR codes that never expire.
+        {metadataConfig.subtitle}
       </motion.p>
     </div>
   );
