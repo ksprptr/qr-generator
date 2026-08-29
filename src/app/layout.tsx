@@ -76,7 +76,9 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
       data-scroll-behavior='smooth'
       suppressHydrationWarning>
       <body
-        className={`${poppins.className} relative min-h-screen overflow-x-hidden bg-zinc-50 text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-50`}>
+        className={`${poppins.className} relative min-h-screen overflow-x-hidden bg-zinc-50 text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-50`}
+        // Extensions (ColorZilla, Grammarly, …) stamp attributes on `body` before React hydrates.
+        suppressHydrationWarning>
         <div className='app-shell'>
           <ThemeProvider>
             {/* Decorative background */}
